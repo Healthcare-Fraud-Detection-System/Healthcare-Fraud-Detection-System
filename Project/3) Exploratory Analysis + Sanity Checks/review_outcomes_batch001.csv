@@ -1,0 +1,191 @@
+claimid,disposition,note,auto_recommendation,policy_basis
+CLM65415,,,Review – outlier payment vs peers / overcharge flag.,
+CLM59355,,,Review – short IP stay + high DRG peer pay.,Short inpatient stay + high DRG peer payment; validate Two-Midnight expectation or exception (death/transfer/rapid improvement) per CMS guidance.
+CLM38217,,,Review – short IP stay + high DRG peer pay.,Short inpatient stay + high DRG peer payment; validate Two-Midnight expectation or exception (death/transfer/rapid improvement) per CMS guidance.
+CLM53754,,,Review – outlier payment vs peers / overcharge flag.,
+CLM78738,,,Review – outlier payment vs peers / overcharge flag.,
+CLM69520,,,Review – outlier payment vs peers / overcharge flag.,
+CLM72721,,,Review – outlier payment vs peers / overcharge flag.,
+CLM46821,,,Review – outlier payment vs peers / overcharge flag.,
+CLM80589,,,Review – short IP stay + high DRG peer pay.,Short inpatient stay + high DRG peer payment; validate Two-Midnight expectation or exception (death/transfer/rapid improvement) per CMS guidance.
+CLM39414,,,Review – short IP stay + high DRG peer pay.,Short inpatient stay + high DRG peer payment; validate Two-Midnight expectation or exception (death/transfer/rapid improvement) per CMS guidance.
+CLM51738,,,Review – outlier payment vs peers / overcharge flag.,
+CLM33511,,,Review – outlier payment vs peers / overcharge flag.,
+CLM51986,,,Review – outlier payment vs peers / overcharge flag.,
+CLM57918,,,Review – outlier payment vs peers / overcharge flag.,
+CLM36103,,,Review – outlier payment vs peers / overcharge flag.,
+CLM72294,,,Review – outlier payment vs peers / overcharge flag.,
+CLM732311,Overpayment,Exact duplicate (same bene/provider/date/service); no proper modifier/units.,Review – high outpatient peer-normalized payment.,"Duplicate same-day service without appropriate modifier/units is denyable (CMS coverage/processing guidance). Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM349742,Overpayment,Exact duplicate (same bene/provider/date/service); no proper modifier/units.,Review – high outpatient peer-normalized payment.,"Duplicate same-day service without appropriate modifier/units is denyable (CMS coverage/processing guidance). Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM82310,Overpayment,Exact duplicate (same bene/provider/date/service); no proper modifier/units.,Review – high outpatient peer-normalized payment.,"Duplicate same-day service without appropriate modifier/units is denyable (CMS coverage/processing guidance). Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM82308,Overpayment,Exact duplicate (same bene/provider/date/service); no proper modifier/units.,Review – high outpatient peer-normalized payment.,"Duplicate same-day service without appropriate modifier/units is denyable (CMS coverage/processing guidance). Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM38536,,,Review – outlier payment vs peers / overcharge flag.,
+CLM76422,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM151566,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM74912,,,Review – outlier payment vs peers / overcharge flag.,
+CLM43190,,,Review – outlier payment vs peers / overcharge flag.,
+CLM75351,,,Review – outlier payment vs peers / overcharge flag.,
+CLM71513,,,Review – outlier payment vs peers / overcharge flag.,
+CLM65559,,,Review – outlier payment vs peers / overcharge flag.,
+CLM72768,,,Review – outlier payment vs peers / overcharge flag.,
+CLM61871,,,Review – outlier payment vs peers / overcharge flag.,
+CLM229948,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM673587,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM226912,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM53412,,,Review – outlier payment vs peers / overcharge flag.,
+CLM57585,,,Review – outlier payment vs peers / overcharge flag.,
+CLM306485,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM388331,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM43794,,,Review – outlier payment vs peers / overcharge flag.,
+CLM78319,,,Review – outlier payment vs peers / overcharge flag.,
+CLM42721,,,Review – outlier payment vs peers / overcharge flag.,
+CLM61372,,,Review – outlier payment vs peers / overcharge flag.,
+CLM255092,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM56389,,,Review – outlier payment vs peers / overcharge flag.,
+CLM308917,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM32150,,,Review – outlier payment vs peers / overcharge flag.,
+CLM57593,,,Review – outlier payment vs peers / overcharge flag.,
+CLM547292,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM683046,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM47787,,,Review – outlier payment vs peers / overcharge flag.,
+CLM57361,,,Review – outlier payment vs peers / overcharge flag.,
+CLM615940,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM77180,,,Review – outlier payment vs peers / overcharge flag.,
+CLM623517,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM322186,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM44904,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM515984,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM64668,,,Review – outlier payment vs peers / overcharge flag.,
+CLM749164,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM50724,,,Review – outlier payment vs peers / overcharge flag.,
+CLM508815,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM351335,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM641694,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM436475,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM82014,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM40351,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM261355,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM77411,,,Review – outlier payment vs peers / overcharge flag.,
+CLM354526,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM198001,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM449689,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM672853,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM716957,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM75638,,,Review – outlier payment vs peers / overcharge flag.,
+CLM41955,,,Review – outlier payment vs peers / overcharge flag.,
+CLM711129,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM286829,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM582156,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM411176,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM676692,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM331359,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM33508,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM44952,,,Review – outlier payment vs peers / overcharge flag.,
+CLM305356,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM53674,,,Review – outlier payment vs peers / overcharge flag.,
+CLM33778,,,Review – outlier payment vs peers / overcharge flag.,
+CLM48739,,,Review – outlier payment vs peers / overcharge flag.,
+CLM74109,,,Review – outlier payment vs peers / overcharge flag.,
+CLM82006,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM563527,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM303266,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM60717,,,Review – outlier payment vs peers / overcharge flag.,
+CLM48997,,,Review – outlier payment vs peers / overcharge flag.,
+CLM321328,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM208440,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM341822,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM54889,,,Review – outlier payment vs peers / overcharge flag.,
+CLM522811,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM71552,,,Review – outlier payment vs peers / overcharge flag.,
+CLM177534,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM78738,,,Review – outlier payment vs peers / overcharge flag.,
+CLM363129,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM76422,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM53214,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM388865,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM43190,,,Review – outlier payment vs peers / overcharge flag.,
+CLM310216,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM71513,,,Review – outlier payment vs peers / overcharge flag.,
+CLM274888,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM291924,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM585646,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM56124,,,,
+CLM636456,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM198408,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM518815,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM53412,,,Review – outlier payment vs peers / overcharge flag.,
+CLM205233,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM649856,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM231227,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM48441,,,Review – outlier payment vs peers / overcharge flag.,
+CLM512152,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM479245,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM636173,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM76759,,,Review – outlier payment vs peers / overcharge flag.,
+CLM68621,,,,
+CLM70877,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM31627,,,,
+CLM361708,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM61781,,,,
+CLM586225,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM259458,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM73292,,,,
+CLM41601,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM711828,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM77180,,,Review – outlier payment vs peers / overcharge flag.,
+CLM289284,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM61829,,,Review – outlier payment vs peers / overcharge flag.,
+CLM44102,,,,
+CLM36601,,,Review – outlier payment vs peers / overcharge flag.,
+CLM644669,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM51986,,,Review – outlier payment vs peers / overcharge flag.,
+CLM250644,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM176672,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM63124,,,Review – outlier payment vs peers / overcharge flag.,
+CLM65240,,,Review – outlier payment vs peers / overcharge flag.,
+CLM73692,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM63559,,,,
+CLM58460,,,,
+CLM373613,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM57585,,,Review – outlier payment vs peers / overcharge flag.,
+CLM58646,,,Review – outlier payment vs peers / overcharge flag.,
+CLM82006,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM157073,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM78349,,,Review – outlier payment vs peers / overcharge flag.,
+CLM31706,,,,
+CLM59603,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM35713,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM219883,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM56808,,,Review – outlier payment vs peers / overcharge flag.,
+CLM75387,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM33423,,,,
+CLM476899,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM59146,,,Review – outlier payment vs peers / overcharge flag.,
+CLM72669,,,Review – outlier payment vs peers / overcharge flag.,
+CLM339119,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM42210,,,Review – outlier payment vs peers / overcharge flag.,
+CLM448970,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM422027,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM62111,,,Review – outlier payment vs peers / overcharge flag.,Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review).
+CLM74109,,,Review – outlier payment vs peers / overcharge flag.,
+CLM40245,,,Review – outlier payment vs peers / overcharge flag.,
+CLM147183,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM314332,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM54264,,,Review – outlier payment vs peers / overcharge flag.,
+CLM240892,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM651378,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM196917,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM226712,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM488792,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM76910,,,Review – outlier payment vs peers / overcharge flag.,
+CLM522811,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM343173,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM519148,,,Review – high outpatient peer-normalized payment.,"Peer-normalized outlier payment; requires medical necessity & coding support (Program Integrity medical review). If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM327102,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM215404,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM79091,,,Review – outlier payment vs peers / overcharge flag.,
+CLM59558,,,Review – outlier payment vs peers / overcharge flag.,
+CLM63643,,,,
+CLM257200,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."
+CLM54889,,,Review – outlier payment vs peers / overcharge flag.,
+CLM676002,,,Review – outlier payment vs peers / overcharge flag.,"If units/codes exceed allowable combinations, check NCCI/MUE (when CPT/HCPCS present)."

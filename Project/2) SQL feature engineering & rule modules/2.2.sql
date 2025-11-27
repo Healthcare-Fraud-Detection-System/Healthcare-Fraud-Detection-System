@@ -45,7 +45,7 @@
 -- WHERE px_code IS NOT NULL;
 -- CREATE INDEX IF NOT EXISTS code_px_prov_day_code_idx
 --   ON mart.code_px(provider, day, code);
--- -- Why: UNNEST once, index results, reuse for daily & rolling distinct counts. :contentReference[oaicite:3]{index=3}
+
 -- -- 2) Provider daily grain (fast base for windows)
 -- DROP TABLE IF EXISTS mart.provider_daily CASCADE;
 -- CREATE TABLE mart.provider_daily AS

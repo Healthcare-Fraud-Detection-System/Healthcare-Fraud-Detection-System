@@ -1,3 +1,0 @@
-cluster,dx_count,px_count,los_days,z_ip_reimb,z_ip_los,dup_exact_flag,dup_near_count,overcharge_z_flag,overcharge_iqr_flag,reimb_amt_log,deductible_share,n
-1,9.0,1.0,4.0,-0.2494101957008189,-0.28674544012970177,0.0,0.0,0.0,0.0,8.853808274977197,0.15257142857142858,22653
-0,9.0,1.0,3.0,-1.080758508938723,-0.36775271888486283,0.0,0.0,0.0,0.0,0.0,0.15257142857142858,596

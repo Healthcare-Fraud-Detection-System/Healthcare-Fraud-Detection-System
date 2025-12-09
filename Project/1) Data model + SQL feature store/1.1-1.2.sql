@@ -1,10 +1,4 @@
--- 1.1) Load raw Medicare data (inpatient, outpatient, beneficiaries) into relational database or data warehouse
--- 1.2) Design and create schema/tables: dimension tables (provider, diagnosis, procedure), fact tables (claims).
-
--- 1) creating schema
 CREATE SCHEMA IF NOT EXISTS stg;
-
--- 2) Provider label table
 CREATE TABLE IF NOT EXISTS stg.train_provider (
   provider              TEXT,
   potential_fraud       TEXT,
@@ -12,7 +6,6 @@ CREATE TABLE IF NOT EXISTS stg.train_provider (
   loaded_at             TIMESTAMPTZ DEFAULT now()
 );
 
--- 3) Beneficiary table
 CREATE TABLE IF NOT EXISTS stg.train_beneficiarydata (
   beneid                             TEXT,
   dob                                TEXT,
@@ -43,42 +36,6 @@ CREATE TABLE IF NOT EXISTS stg.train_beneficiarydata (
   loaded_at                          TIMESTAMPTZ DEFAULT now()
 );
 
--- 4) Inpatient claims table
-CREATE TABLE IF NOT EXISTS stg.train_inpatientdata (
-  beneid                 TEXT,
-  claimid                TEXT,
-  claimstartdt           TEXT,
-  claimenddt             TEXT,
-  provider               TEXT,
-  inscclaimamtreimbursed TEXT,
-  attendingphysician     TEXT,
-  operatingphysician     TEXT,
-  otherphysician         TEXT,
-  admissiondt            TEXT,
-  clmadmitdiagnosiscode  TEXT,
-  deductibleamtpaid      TEXT,
-  dischargedt            TEXT,
-  diagnosisgroupcode     TEXT,
-  clmdiagnosiscode_1     TEXT,
-  clmdiagnosiscode_2     TEXT,
-  clmdiagnosiscode_3     TEXT,
-  clmdiagnosiscode_4     TEXT,
-  clmdiagnosiscode_5     TEXT,
-  clmdiagnosiscode_6     TEXT,
-  clmdiagnosiscode_7     TEXT,
-  clmdiagnosiscode_8     TEXT,
-  clmdiagnosiscode_9     TEXT,
-  clmdiagnosiscode_10    TEXT,
-  clmprocedurecode_1     TEXT,
-  clmprocedurecode_2     TEXT,
-  clmprocedurecode_3     TEXT,
-  clmprocedurecode_4     TEXT,
-  clmprocedurecode_5     TEXT,
-  clmprocedurecode_6     TEXT,
-  load_file_name         TEXT,
-  loaded_at              TIMESTAMPTZ DEFAULT now()
-);
--- 4) Inpatient claims table
 CREATE TABLE IF NOT EXISTS stg.train_inpatientdata (
   beneid                 TEXT,
   claimid                TEXT,
@@ -114,7 +71,41 @@ CREATE TABLE IF NOT EXISTS stg.train_inpatientdata (
   loaded_at              TIMESTAMPTZ DEFAULT now()
 );
 
--- 5) Outpatient claims table
+CREATE TABLE IF NOT EXISTS stg.train_inpatientdata (
+  beneid                 TEXT,
+  claimid                TEXT,
+  claimstartdt           TEXT,
+  claimenddt             TEXT,
+  provider               TEXT,
+  inscclaimamtreimbursed TEXT,
+  attendingphysician     TEXT,
+  operatingphysician     TEXT,
+  otherphysician         TEXT,
+  admissiondt            TEXT,
+  clmadmitdiagnosiscode  TEXT,
+  deductibleamtpaid      TEXT,
+  dischargedt            TEXT,
+  diagnosisgroupcode     TEXT,
+  clmdiagnosiscode_1     TEXT,
+  clmdiagnosiscode_2     TEXT,
+  clmdiagnosiscode_3     TEXT,
+  clmdiagnosiscode_4     TEXT,
+  clmdiagnosiscode_5     TEXT,
+  clmdiagnosiscode_6     TEXT,
+  clmdiagnosiscode_7     TEXT,
+  clmdiagnosiscode_8     TEXT,
+  clmdiagnosiscode_9     TEXT,
+  clmdiagnosiscode_10    TEXT,
+  clmprocedurecode_1     TEXT,
+  clmprocedurecode_2     TEXT,
+  clmprocedurecode_3     TEXT,
+  clmprocedurecode_4     TEXT,
+  clmprocedurecode_5     TEXT,
+  clmprocedurecode_6     TEXT,
+  load_file_name         TEXT,
+  loaded_at              TIMESTAMPTZ DEFAULT now()
+);
+
 CREATE TABLE IF NOT EXISTS stg.train_outpatientdata (
   beneid                 TEXT,
   claimid                TEXT,
@@ -147,30 +138,22 @@ CREATE TABLE IF NOT EXISTS stg.train_outpatientdata (
   loaded_at              TIMESTAMPTZ DEFAULT now()
 );
 
-
--- annotate the file name
 UPDATE stg.train_provider        SET load_file_name = 'Train.csv'                 WHERE load_file_name IS NULL;
 UPDATE stg.train_beneficiarydata SET load_file_name = 'Train_Beneficiarydata.csv' WHERE load_file_name IS NULL;
 UPDATE stg.train_inpatientdata   SET load_file_name = 'Train_Inpatientdata.csv'   WHERE load_file_name IS NULL;
 UPDATE stg.train_outpatientdata  SET load_file_name = 'Train_Outpatientdata.csv'  WHERE load_file_name IS NULL;
 
-
--- Row counts
 SELECT 'train_provider' tbl, count(*) FROM stg.train_provider UNION ALL
 SELECT 'train_beneficiarydata', count(*) FROM stg.train_beneficiarydata UNION ALL
 SELECT 'train_inpatientdata', count(*) FROM stg.train_inpatientdata UNION ALL
 SELECT 'train_outpatientdata', count(*) FROM stg.train_outpatientdata;
 
--- Looking for duplicates across tables --
 WITH
--- 1) Placeholder tokens we treat as "missing"
 tokens(token) AS (
   VALUES ('NA'), ('N/A'), (''), ('NULL'), ('null')
 ),
--- 2) Date pattern (adjust to '^\d{2}/\d{2}/\d{4}$' if your CSV is MM/DD/YYYY)
 rx(pattern) AS (SELECT '^\d{4}-\d{2}-\d{2}$'),
 
--- 3) Helpers to count once per test
 dup_bene AS (
   SELECT COUNT(*) AS n FROM (
     SELECT beneid FROM stg.train_beneficiarydata
@@ -208,7 +191,6 @@ orph_provider_op AS (
   WHERE p.provider IS NULL
 ),
 
--- 4) Placeholders in key IDs
 ph_bene_bene AS (
   SELECT COUNT(*) AS n
   FROM stg.train_beneficiarydata b, tokens
@@ -235,7 +217,6 @@ ph_claim_op AS (
   WHERE UPPER(TRIM(t.claimid)) = tokens.token
 ),
 
--- 5) Placeholders in diagnosis / procedure arrays (IP & OP)
 ph_dx_ip AS (
   SELECT COUNT(*) AS n
   FROM stg.train_inpatientdata t, tokens
@@ -283,7 +264,6 @@ ph_px_op AS (
   )
 ),
 
--- 6) Bad date formats (exclude NULL/placeholders, then regex-mismatch)
 bad_dates AS (
   SELECT 'bad_claimstartdt_ip' AS test, COUNT(*) AS n
   FROM stg.train_inpatientdata t, rx
@@ -334,7 +314,6 @@ bad_dates AS (
     AND b.dod !~ rx.pattern
 )
 
--- Final stacked report (one row per check)
 SELECT 'dup_beneid_in_beneficiary' AS test, 'stg.train_beneficiarydata' AS table_name, 'duplicate_beneid' AS issue, n
 FROM dup_bene
 UNION ALL

@@ -1,5 +1,3 @@
--- 2.3) Implement peer-normalization features: compute specialty-level or DRG-level mean & std, then provider z-scores.
--- 0) Anchor as_of to the latest claim date present
 WITH
 	M AS (
 		SELECT
@@ -12,9 +10,6 @@ SELECT
 FROM
 	M;
 
--- 1) Inpatient DRG peer stats (365 days), IP (DRG): reimbursement per claim and LOS
--- MS-DRG is the inpatient case-mix/payment grouping used under IPPS, so it’s the right “peer” for IP claims
--- We'll compute 99th percentile per DRG (365d) and cap reimb_amt at that before SD.
 DROP TABLE IF EXISTS MART.IP_DRG_CAPS_365;
 
 CREATE TABLE MART.IP_DRG_CAPS_365 AS
@@ -92,7 +87,6 @@ GROUP BY
 
 CREATE INDEX IF NOT EXISTS IP_DRG_PEER_365_IDX ON MART.IP_DRG_PEER_365 (DRG);
 
--- 2) Provider-by-DRG stats and z-scores (365 days)
 DROP TABLE IF EXISTS MART.PROVIDER_DRG_STATS_365;
 
 CREATE TABLE MART.PROVIDER_DRG_STATS_365 AS
@@ -149,8 +143,6 @@ FROM
 
 CREATE INDEX IF NOT EXISTS PROVIDER_DRG_STATS_IDX ON MART.PROVIDER_DRG_STATS_365 (PROVIDER, DRG);
 
--- 3) Outpatient peer stats by primary diagnosis prefix (365 days)
--- Compute p99 per prefix for mild winsorization
 DROP TABLE IF EXISTS MART.OP_DXPREFIX_CAPS_365;
 
 CREATE TABLE MART.OP_DXPREFIX_CAPS_365 AS
@@ -178,7 +170,6 @@ WHERE
 GROUP BY
 	SUBSTR(DX1, 1, 1);
 
--- Peer (prefix) means/SDs
 DROP TABLE IF EXISTS MART.OP_PREFIX_PEER_365;
 
 CREATE TABLE MART.OP_PREFIX_PEER_365 AS
@@ -208,7 +199,6 @@ GROUP BY
 
 CREATE INDEX IF NOT EXISTS OP_PREFIX_PEER_IDX ON MART.OP_PREFIX_PEER_365 (DX_PREFIX);
 
--- Provider-by-prefix means and z
 DROP TABLE IF EXISTS MART.PROVIDER_OP_PREFIX_STATS_365;
 
 CREATE TABLE MART.PROVIDER_OP_PREFIX_STATS_365 AS
@@ -250,7 +240,6 @@ GROUP BY
 
 CREATE INDEX IF NOT EXISTS PROVIDER_OP_PREFIX_IDX ON MART.PROVIDER_OP_PREFIX_STATS_365 (PROVIDER, DX_PREFIX);
 
--- 4) Final provider-level peer-norm features
 DROP VIEW IF EXISTS MART.V_PROVIDER_PEER_NORM_365;
 
 CREATE VIEW MART.V_PROVIDER_PEER_NORM_365 AS
@@ -279,8 +268,6 @@ FROM
 WHERE
 	FALSE;
 
--- placeholder to keep view definition simple
--- Alternatively: create two separate views (IP and OP), or JOIN them side-by-side:
 DROP VIEW IF EXISTS MART.V_PROVIDER_PEER_NORM_365_FULL;
 
 CREATE VIEW MART.V_PROVIDER_PEER_NORM_365_FULL AS
@@ -321,8 +308,6 @@ FROM
 			PROVIDER
 	) OP USING (PROVIDER);
 
--- Quick Sanity Checks
--- 1) DRGs with low peer counts (unstable SD → z-scores might be NULL)
 SELECT
 	DRG,
 	PEER_CLAIMS_365
@@ -333,8 +318,6 @@ WHERE
 ORDER BY
 	PEER_CLAIMS_365;
 
--- consider suppressing z-scores for tiny peer groups
--- 2) Providers with extreme inpatient z-reimb
 SELECT
 	PROVIDER,
 	DRG,
@@ -347,7 +330,6 @@ ORDER BY
 LIMIT
 	20;
 
--- 3) Outpatient: top positive z by prefix
 SELECT
 	PROVIDER,
 	DX_PREFIX,

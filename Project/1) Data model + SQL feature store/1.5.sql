@@ -1,6 +1,3 @@
--- -- 1.5) Build baseline SQL views/materialized tables that join relevant tables (claim + provider + beneficiary). 
-
--- -- 1) Merging InPatient ∪ OutPatient into One Fact Table
 CREATE SCHEMA IF NOT EXISTS mart;
 
 DROP TABLE IF EXISTS mart.fact_claim CASCADE;
@@ -41,19 +38,17 @@ SELECT
   icd_version
 FROM curated.claims_outpatient;
 
--- -- Helpful indexes for joins & time grouping
 CREATE INDEX IF NOT EXISTS fact_claim_provider_idx ON mart.fact_claim(provider);
 CREATE INDEX IF NOT EXISTS fact_claim_beneid_idx   ON mart.fact_claim(beneid);
 CREATE INDEX IF NOT EXISTS fact_claim_start_idx    ON mart.fact_claim(claim_start);
 
--- 2) ready-to-use joined view (adds provider & beneficiary context)
 DROP VIEW IF EXISTS mart.v_claim_with_dims;
 CREATE VIEW mart.v_claim_with_dims AS
 SELECT
   f.claim_type,
   f.claimid,
   f.provider,
-  p.potential_fraud, -- training label (NULL in scoring/holdout)
+  p.potential_fraud,
   f.beneid,
   b.gender, b.race, b.state, b.county,
   b.dob, b.dod, b.months_part_a, b.months_part_b,
@@ -68,7 +63,6 @@ FROM mart.fact_claim f
 LEFT JOIN curated.provider_labels p USING (provider)
 LEFT JOIN curated.beneficiary b USING (beneid);
 
--- 3) (Optional) Fast monthly rollups for providers
 DROP MATERIALIZED VIEW IF EXISTS mart.mv_provider_monthly;
 CREATE MATERIALIZED VIEW mart.mv_provider_monthly AS
 SELECT
@@ -84,24 +78,16 @@ FROM mart.fact_claim
 WHERE claim_start IS NOT NULL
 GROUP BY provider, date_trunc('month', claim_start);
 
--- Index for fast refresh/filters
 CREATE INDEX IF NOT EXISTS mv_provider_monthly_idx
   ON mart.mv_provider_monthly(provider, month_start);
 
--- When data changes, refresh:
--- REFRESH MATERIALIZED VIEW mart.mv_provider_monthly;
--- (If you later want REFRESH ... CONCURRENTLY, create a UNIQUE index first.)
-
--- Tiny sanity checks (Should equal IP rows + OP rows)
 SELECT 'fact_claim_count' AS check, COUNT(*) FROM mart.fact_claim
 UNION ALL
 SELECT 'ip_plus_op' AS check,
   (SELECT COUNT(*) FROM curated.claims_inpatient) +
   (SELECT COUNT(*) FROM curated.claims_outpatient);
 
--- Quick join works
 SELECT COUNT(*) FROM mart.v_claim_with_dims;
 
--- Monthly rollup sample (top 5)
 SELECT * FROM mart.mv_provider_monthly ORDER BY provider, month_start LIMIT 5;
 

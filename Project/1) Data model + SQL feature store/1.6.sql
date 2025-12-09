@@ -1,8 +1,3 @@
--- 1.6) Audit basic data distribution: counts, nulls, value ranges, outliers in amounts, lengths of stay.
-
--- 1) Row counts & keys
-
--- table sizes + distinct IDs
 SELECT 'ip_rows' AS k, COUNT(*) FROM curated.claims_inpatient UNION ALL
 SELECT 'op_rows', COUNT(*) FROM curated.claims_outpatient UNION ALL
 SELECT 'bene_rows', COUNT(*) FROM curated.beneficiary UNION ALL
@@ -12,10 +7,6 @@ SELECT 'op_distinct_claimid', COUNT(DISTINCT claimid) FROM curated.claims_outpat
 SELECT 'distinct_beneid_in_claims', COUNT(DISTINCT beneid) FROM mart.fact_claim UNION ALL
 SELECT 'distinct_provider_in_claims', COUNT(DISTINCT provider) FROM mart.fact_claim;
 
-
--- 2) Missingness (null/placeholder already normalized → just NULL rates)
-
--- NULL rates for key analytics columns
 SELECT 'reimb_amt_null_rate' AS metric,
        ROUND(100.0*SUM(CASE WHEN reimb_amt IS NULL THEN 1 ELSE 0 END)/COUNT(*),2) AS pct
 FROM mart.fact_claim
@@ -28,8 +19,6 @@ SELECT 'dx1_null_rate',
        ROUND(100.0*SUM(CASE WHEN dx1 IS NULL THEN 1 ELSE 0 END)/COUNT(*),2)
 FROM mart.fact_claim;
 
--- 3) Value ranges & percentiles (for amounts)
--- Postgres ordered-set aggregates: percentiles per claim_type
 SELECT claim_type,
        MIN(reimb_amt) AS min_amt,
        PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY reimb_amt) AS p25,
@@ -43,8 +32,6 @@ WHERE reimb_amt IS NOT NULL
 GROUP BY claim_type
 ORDER BY claim_type;
 
--- 4) Outliers — IQR “boxplot rule” (robust, simple)
--- flag high/low outliers on reimb_amt by claim_type
 WITH pct AS (
   SELECT claim_type,
          PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY reimb_amt) AS q1,
@@ -68,10 +55,6 @@ JOIN fences f USING (claim_type)
 WHERE c.reimb_amt IS NOT NULL
 GROUP BY f.claim_type;
 
--- 5) Outliers — MAD “robust z-score” (extra-robust option)
--- LOS in days (don’t count discharge day per Medicare guidance)
--- If discharge_dt is NULL, exclude from LOS stats.
--- Robust z = |x - median| / (1.4826 * MAD); flag where robust z > 3.5 (tweakable)
 WITH s AS (
   SELECT claim_type,
          PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY reimb_amt) AS med
@@ -95,8 +78,6 @@ SELECT r.claim_type,
 FROM resid r JOIN mad m USING (claim_type)
 GROUP BY r.claim_type;
 
-
--- 6) Length of stay (LOS) checks — IP only
 WITH ip AS (
   SELECT claimid, provider, admit_dt, discharge_dt,
          GREATEST((discharge_dt - admit_dt), 0) AS los_days
@@ -111,7 +92,6 @@ SELECT
   MAX(los_days) AS max_los
 FROM ip;
 
--- Sanity flags for impossible or extreme LOS - IP only
 WITH ip AS (
   SELECT GREATEST((discharge_dt - admit_dt), 0) AS los_days
   FROM mart.fact_claim

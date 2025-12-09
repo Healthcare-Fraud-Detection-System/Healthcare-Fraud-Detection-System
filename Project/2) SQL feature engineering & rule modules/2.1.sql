@@ -1,11 +1,7 @@
--- 2) SQL feature engineering & rule modules
--- 2.1) Design claim-level features: e.g. claim amount, units, code counts, time-of-day, duplicate indicator.
--- 1) Helper: function to count non-null across an array
 CREATE OR REPLACE FUNCTION MART._NONNULL_COUNT (VARIADIC ARR TEXT[]) RETURNS INT LANGUAGE SQL IMMUTABLE AS $$
   SELECT count(*) FROM unnest(arr) AS t(x) WHERE x IS NOT NULL
 $$;
 
--- 2) Build features from the unified fact
 DROP TABLE IF EXISTS MART.CLAIM_FEATURES CASCADE;
 
 CREATE TABLE MART.CLAIM_FEATURES AS
@@ -24,7 +20,6 @@ WITH
 			F.DISCHARGE_DT,
 			F.ADMIT_DX,
 			F.DRG,
-			-- counts
 			MART._NONNULL_COUNT (
 				F.DX1,
 				F.DX2,
@@ -38,7 +33,6 @@ WITH
 				F.DX10
 			) AS DX_COUNT,
 			MART._NONNULL_COUNT (F.PX1, F.PX2, F.PX3, F.PX4, F.PX5, F.PX6) AS PX_COUNT,
-			-- simple ICD prefix (first char) for dx1
 			CASE
 				WHEN F.DX1 IS NOT NULL THEN SUBSTR(F.DX1, 1, 1)
 			END AS PRIMARY_DX_PREFIX
@@ -96,11 +90,10 @@ WITH
 		SELECT
 			*,
 			(REIMB_AMT = 0)::INT AS AMOUNT_ZERO_FLAG,
-			(REIMB_AMT > 75000)::INT AS AMOUNT_HIGH_FLAG -- tune later using your p99/p999
+			(REIMB_AMT > 75000)::INT AS AMOUNT_HIGH_FLAG
 		FROM
 			LOS
 	),
-	-- Exact duplicate: same bene+provider+claim_start and same reimb_amt
 	EXACT_DUPS AS (
 		SELECT
 			CLAIMID,
@@ -117,7 +110,6 @@ WITH
 		FROM
 			MART.FACT_CLAIM
 	),
-	-- Near-duplicate: ±1 day window with approx amount (within 1%) for same bene+provider
 	NEAR_DUPS AS (
 		SELECT
 			F.CLAIMID,

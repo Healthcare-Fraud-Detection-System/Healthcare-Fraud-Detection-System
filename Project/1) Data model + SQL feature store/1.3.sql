@@ -1,13 +1,6 @@
--- 1.3) Clean and normalize data: missing values, date parsing, code standardization
-
--- 1) Create curated schema & helper view
 CREATE SCHEMA IF NOT EXISTS curated;
-
--- Centralize placeholder tokens
 CREATE OR REPLACE VIEW curated._missing_tokens AS
 SELECT unnest(ARRAY['NA','N/A','','NULL','null']) AS token;
-
--- 2) Clean provider labels (typed)
 
 DROP TABLE IF EXISTS curated.provider_labels CASCADE;
 CREATE TABLE curated.provider_labels AS
@@ -20,12 +13,8 @@ SELECT
   END AS potential_fraud
 FROM stg.train_provider;
 
--- Basic DQ: provider should not be null
 ALTER TABLE curated.provider_labels
   ADD CONSTRAINT provider_labels_pk PRIMARY KEY (provider);
-
-
--- 3) Clean beneficiary table (dates, flags, amounts)
 
 DROP TABLE IF EXISTS curated.beneficiary CASCADE;
 
@@ -40,20 +29,17 @@ WITH t AS (
     NULLIF(TRIM(dob), '') AS dob_raw,
     NULLIF(TRIM(dod), '') AS dod_raw,
 
-    -- Gender: “1” → 0, “2” → 1, else NULL
     CASE
       WHEN TRIM(gender) = '1' THEN 0
       WHEN TRIM(gender) = '2' THEN 1
       ELSE NULL
     END AS gender_raw,
 
-    -- Race: 1–5 only
     CASE
       WHEN TRIM(race) ~ '^[1-5]$' THEN CAST(TRIM(race) AS INTEGER)
       ELSE NULL
     END AS race_raw,
 
-    -- Renal indicator: “0” → 0, “Y” → 1, else NULL
     CASE
       WHEN TRIM(renaldiseaseindicator) = '0' THEN 0
       WHEN UPPER(TRIM(renaldiseaseindicator)) = 'Y' THEN 1
@@ -67,7 +53,6 @@ WITH t AS (
     NULLIF(TRIM(noofmonths_partacov), '') AS part_a_months_raw,
     NULLIF(TRIM(noofmonths_partbcov), '') AS part_b_months_raw,
 
-    -- Chronic flags: “1” → 0, “2” → 1
     CASE WHEN TRIM(chroniccond_alzheimer) = '1' THEN 0
          WHEN TRIM(chroniccond_alzheimer) = '2' THEN 1
          ELSE NULL END AS chronic_alzheimer,
@@ -112,13 +97,11 @@ WITH t AS (
 SELECT
   beneid,
 
-  -- Guarded parsing of dob
   CASE
     WHEN dob_raw IS NULL OR dob_raw !~ '^\d{4}-\d{2}-\d{2}$' THEN NULL
     ELSE TO_DATE(dob_raw, 'YYYY-MM-DD')
   END AS dob,
 
-  -- Guarded parsing of dod
   CASE
     WHEN dod_raw IS NULL OR dod_raw !~ '^\d{4}-\d{2}-\d{2}$' THEN NULL
     ELSE TO_DATE(dod_raw, 'YYYY-MM-DD')
@@ -156,7 +139,6 @@ FROM t;
 ALTER TABLE curated.beneficiary
   ADD CONSTRAINT beneficiary_pk PRIMARY KEY (beneid);
 
--- Removes periods and uppercases code strings (works for ICD-9/10)
 CREATE OR REPLACE FUNCTION curated.clean_code(txt TEXT)
 RETURNS TEXT LANGUAGE SQL IMMUTABLE AS $$
 SELECT CASE
@@ -166,7 +148,6 @@ SELECT CASE
 END
 $$;
 
--- 4) Clean Inpatient table (dates, flags, amounts)
 DROP TABLE IF EXISTS curated.claims_inpatient CASCADE;
 CREATE TABLE curated.claims_inpatient AS
 SELECT
@@ -197,7 +178,6 @@ SELECT
   curated.clean_code(clmprocedurecode_4)  AS px4,
   curated.clean_code(clmprocedurecode_5)  AS px5,
   curated.clean_code(clmprocedurecode_6)  AS px6,
-  -- Determine ICD version by start date (ICD-10 from 2015-10-01)
   CASE WHEN TO_DATE(NULLIF(TRIM(claimstartdt), ''), 'YYYY-MM-DD') >= DATE '2015-10-01'
        THEN 'ICD10' ELSE 'ICD9' END AS icd_version
 FROM stg.train_inpatientdata;
@@ -205,7 +185,6 @@ FROM stg.train_inpatientdata;
 ALTER TABLE curated.claims_inpatient
   ADD CONSTRAINT claims_inpatient_pk PRIMARY KEY (claimid);
 
--- 5) Clean Outpatient Table (dates, flags, amounts)
 DROP TABLE IF EXISTS curated.claims_outpatient CASCADE;
 CREATE TABLE curated.claims_outpatient AS
 SELECT

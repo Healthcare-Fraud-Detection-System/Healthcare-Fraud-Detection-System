@@ -2,9 +2,6 @@ DROP TABLE IF EXISTS test.features_claim;
 
 CREATE TABLE test.features_claim AS
 WITH
--- ============================
--- IP base for TEST claims
--- ============================
 ip_base AS (
   SELECT
     i.claimid,
@@ -37,7 +34,6 @@ ip_base AS (
   FROM test.claims_inpatient i
 ),
 
--- TRAIN-based DRG stats for IP (from mart.features_claim)
 ip_stats AS (
   SELECT
     drg,
@@ -57,15 +53,12 @@ ip_z AS (
     ((b.los_days  - s.mean_los)   / NULLIF(s.std_los,0))::double precision   AS z_ip_los
   FROM ip_base b
   LEFT JOIN ip_stats s
+  LEFT JOIN ip_stats s
     ON b.drg = s.drg
 ),
 
--- ============================
--- OP base for TEST claims
--- ============================
 op_base AS (
-  SELECT
-    o.claimid,
+  SELECTaimid,
     'OP'::text AS claim_type,
     o.provider,
     o.beneid,
@@ -93,13 +86,12 @@ op_base AS (
     0::int AS los_days
   FROM test.claims_outpatient o
 ),
+    0::int AS los_days
+  FROM test.claims_outpatient o
+),
 
--- OP z-scores computed from TEST OP claims themselves (by primary_dx_prefix)
 op_z AS (
-  SELECT
-    b.*,
-    (
-      (b.reimb_amt
+  SELECT.reimb_amt
        - AVG(b.reimb_amt) OVER (PARTITION BY b.primary_dx_prefix)
       ) / NULLIF(
             STDDEV_POP(b.reimb_amt) OVER (PARTITION BY b.primary_dx_prefix),
@@ -109,16 +101,12 @@ op_z AS (
   FROM op_base b
 ),
 
--- ============================
--- Union IP + OP with flags
--- ============================
+    )::double precision AS z_op_reimb
+  FROM op_base b
+),
+
 u AS (
-  -- IP branch
-  SELECT
-    claimid, claim_type, provider, beneid, claim_start, claim_end,
-    reimb_amt, deductible_paid, dx_count, px_count,
-    primary_dx_prefix, drg,
-    dow, is_weekend, month, quarter, los_days,
+  SELECT is_weekend, month, quarter, los_days,
     (CASE WHEN claim_type='IP' AND los_days < 2 THEN 1 ELSE 0 END)::int AS short_stay_flag,
     (CASE WHEN reimb_amt <= 0 THEN 1 ELSE 0 END)::int                  AS amount_zero_flag,
     COALESCE(z_ip_reimb,0.0)              AS z_ip_reimb,
@@ -134,25 +122,21 @@ u AS (
     reimb_amt, deductible_paid, dx_count, px_count,
     primary_dx_prefix, drg,
     dow, is_weekend, month, quarter, los_days,
-    0::int                                AS short_stay_flag,
-    (CASE WHEN reimb_amt <= 0 THEN 1 ELSE 0 END)::int AS amount_zero_flag,
-    0.0::double precision                 AS z_ip_reimb,
-    0.0::double precision                 AS z_ip_los,
-    COALESCE(z_op_reimb,0.0)              AS z_op_reimb
+  UNION ALL
+
+  SELECT
+    claimid, claim_type, provider, beneid, claim_start, claim_end,
   FROM op_z
 ),
 
 -- ============================
 -- Duplicate / near-duplicate
--- ============================
-dup_exact AS (
-  SELECT
-    provider, beneid, claim_start, claim_end, claim_type, reimb_amt,
-    COUNT(*) AS cnt
-  FROM u
-  GROUP BY 1,2,3,4,5,6
+    COALESCE(z_op_reimb,0.0)              AS z_op_reimb
+  FROM op_z
 ),
 
+dup_exact AS (
+  SELECT
 dup_near AS (
   SELECT
     provider,
@@ -169,14 +153,11 @@ dup_near AS (
 iq_ip AS (
   SELECT
     1 AS k,
-    PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY reimb_amt) AS q1,
-    PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY reimb_amt) AS q3,
-    PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY reimb_amt)
-    - PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY reimb_amt) AS iqr
-  FROM mart.features_claim
-  WHERE claim_type = 'IP'
+  GROUP BY 1,2,3
 ),
-iq_op AS (
+
+iq_ip AS (
+  SELECT (
   SELECT
     1 AS k,
     PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY reimb_amt) AS q1,
@@ -195,15 +176,12 @@ SELECT
   u.claim_type,
   u.provider,
   u.beneid,
-  u.claim_start,
-  u.claim_end,
+  FROM mart.features_claim
+  WHERE claim_type = 'OP'
+)
 
-  COALESCE(u.reimb_amt,0)::numeric(12,2)       AS reimb_amt,
-  COALESCE(u.deductible_paid,0)::numeric(12,2) AS deductible_paid,
-  COALESCE(u.dx_count,0)::int                  AS dx_count,
-  COALESCE(u.px_count,0)::int                  AS px_count,
-  COALESCE(u.primary_dx_prefix,'')             AS primary_dx_prefix,
-  COALESCE(u.drg,'')                           AS drg,
+SELECT
+  u.claimid,.drg,'')                           AS drg,
   COALESCE(u.dow,0)::int                       AS dow,
   COALESCE(u.is_weekend,0)::int                AS is_weekend,
   COALESCE(u.month,0)::int                     AS month,
